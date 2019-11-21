@@ -1,102 +1,181 @@
-<?php
-session_start();
-$conn = mysqli_connect("localhost","root","1234","dbphp");
-
-$message="";
-if(!empty($_POST["login"])) {
-    $result = mysqli_query($conn,"SELECT * FROM dbphp_user WHERE u_id='" . $_POST["user_name"] . "' and u_matkhau = '". $_POST["password"]."'");
-    $row  = mysqli_fetch_array($result);
-    if(is_array($row)) {
-        $_SESSION["user_id"] = $row['u_id'];
-    } else {
-        $message = "Invalid Username or Password!";
-    }
-}
-if(!empty($_POST["logout"])) {
-    $_SESSION["user_id"] = "";
-    session_destroy();
-}
+﻿<?php
+include_once './model/book.php';
+//session_start();
+//include 'dangxuat.php';
+//include '../utils/ketnoidb.php';
+// if(isset($_SESSION['user_id']))
+//    echo "nguoi dung da dang nhap";
+// else
+//     echo "nguoi dung chua dang nhap"
+$lsbook = array();
+$lsbook = Book::getAll();
 ?>
-<html>
-<head>
-    <title>User Login</title>
-    <style>
-        #frmLogin {
-            padding: 20px 60px;
-            background: #B6E0FF;
-            color: #555;
-            display: inline-block;
-            border-radius: 4px;
-        }
-        .field-group {
-            margin:15px 0px;
-        }
-        .input-field {
-            padding: 8px;width: 200px;
-            border: #A3C3E7 1px solid;
-            border-radius: 4px;
-        }
-        .form-submit-button {
-            background: #65C370;
-            border: 0;
-            padding: 8px 20px;
-            border-radius: 4px;
-            color: #FFF;
-            text-transform: uppercase;
-        }
-        .member-dashboard {
-            padding: 40px;
-            background: #D2EDD5;
-            color: #555;
-            border-radius: 4px;
-            display: inline-block;
-            text-align:center;
-        }
-        .logout-button {
-            color: #09F;
-            text-decoration: none;
-            background: none;
-            border: none;
-            padding: 0px;
-            cursor: pointer;
-        }
-        .error-message {
-            text-align:center;
-            color:#FF0000;
-        }
-        .demo-content label{
-            width:auto;
-        }
-    </style>
-</head>
-<body>
-<div>
-    <div style="display:block;margin:0px auto;">
-        <?php if(empty($_SESSION["user_id"])) { ?>
-            <form action="" method="post" id="frmLogin">
-                <div class="error-message"><?php if(isset($message)) { echo $message; } ?></div>
-                <div class="field-group">
-                    <div><label for="login">Username</label></div>
-                    <div><input name="user_name" type="text" class="input-field"></div>
-                </div>
-                <div class="field-group">
-                    <div><label for="password">Password</label></div>
-                    <div><input name="password" type="password" class="input-field"> </div>
-                </div>
-                <div class="field-group">
-                    <div><input type="submit" name="login" value="Login" class="form-submit-button"></span></div>
-                </div>
-            </form>
-            <?php
-        } else {
-        $result = mysqlI_query($conn,"SELECT * FROM dbphp_user WHERE u_id='" . $_SESSION["user_id"] . "'");
-        $row  = mysqli_fetch_array($result);
-        ?>
-        <form action="" method="post" id="frmLogout">
-            <div class="member-dashboard">Welcome <?php echo ucwords($row['u_id']); ?>, You have successfully logged in!<br>
-                Click to <input type="submit" name="logout" value="Logout" class="logout-button">.</div>
-        </form>
-    </div>
+<?php
+include_once("./header.php")
+?>
+<!-- Start Shop Page -->
+<div class="page-shop-sidebar left--sidebar bg--white section-padding--lg">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-3 col-12 order-2 order-lg-1 md-mt-40 sm-mt-40">
+				<div class="shop__sidebar">
+					<aside class="wedget__categories poroduct--cat">
+						<h3 class="wedget__title">Product Categories</h3>
+						<ul>
+							<li><a href="#">Biography <span>(3)</span></a></li>
+							<li><a href="#">Business <span>(4)</span></a></li>
+							<li><a href="#">Cookbooks <span>(6)</span></a></li>
+							<li><a href="#">Health & Fitness <span>(7)</span></a></li>
+							<li><a href="#">History <span>(8)</span></a></li>
+							<li><a href="#">Mystery <span>(9)</span></a></li>
+							<li><a href="#">Inspiration <span>(13)</span></a></li>
+							<li><a href="#">Romance <span>(20)</span></a></li>
+							<li><a href="#">Fiction/Fantasy <span>(22)</span></a></li>
+							<li><a href="#">Self-Improvement <span>(13)</span></a></li>
+							<li><a href="#">Humor Books <span>(17)</span></a></li>
+							<li><a href="#">Harry Potter <span>(20)</span></a></li>
+							<li><a href="#">Land of Stories <span>(34)</span></a></li>
+							<li><a href="#">Kids' Music <span>(60)</span></a></li>
+							<li><a href="#">Toys & Games <span>(3)</span></a></li>
+							<li><a href="#">hoodies <span>(3)</span></a></li>
+						</ul>
+					</aside>
+					<aside class="wedget__categories pro--range">
+						<h3 class="wedget__title">Filter by price</h3>
+						<div class="content-shopby">
+							<div class="price_filter s-filter clear">
+								<form action="#" method="GET">
+									<div id="slider-range"></div>
+									<div class="slider__range--output">
+										<div class="price__output--wrap">
+											<div class="price--output">
+												<span>Price :</span><input type="text" id="amount" readonly="">
+											</div>
+											<div class="price--filter">
+												<a href="#">Filter</a>
+											</div>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</aside>
+					<aside class="wedget__categories poroduct--tag">
+						<h3 class="wedget__title">Product Tags</h3>
+						<ul>
+							<li><a href="#">Biography</a></li>
+							<li><a href="#">Business</a></li>
+							<li><a href="#">Cookbooks</a></li>
+							<li><a href="#">Health & Fitness</a></li>
+							<li><a href="#">History</a></li>
+							<li><a href="#">Mystery</a></li>
+							<li><a href="#">Inspiration</a></li>
+							<li><a href="#">Religion</a></li>
+							<li><a href="#">Fiction</a></li>
+							<li><a href="#">Fantasy</a></li>
+							<li><a href="#">Music</a></li>
+							<li><a href="#">Toys</a></li>
+							<li><a href="#">Hoodies</a></li>
+						</ul>
+					</aside>
+					<aside class="wedget__categories sidebar--banner">
+						<img src="images/others/banner_left.jpg" alt="banner images">
+						<div class="text">
+							<h2>new products</h2>
+							<h6>save up to <br> <strong>40%</strong>off</h6>
+						</div>
+					</aside>
+				</div>
+			</div>
+			<div class="col-lg-9 col-12 order-1 order-lg-2">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="shop__list__wrapper d-flex flex-wrap flex-md-nowrap justify-content-between">
+							<div class="shop__list nav justify-content-center" role="tablist">
+								<a class="nav-item nav-link active" data-toggle="tab" href="#nav-grid" role="tab"><i class="fa fa-th"></i></a>
+								<a class="nav-item nav-link" data-toggle="tab" href="#nav-list" role="tab"><i class="fa fa-list"></i></a>
+							</div>
+							<p>Showing 1–12 of 40 results</p>
+							<div class="orderby__wrapper">
+								<span>Sort By</span>
+								<select class="shot__byselect">
+									<option>Default sorting</option>
+									<option>HeadPhone</option>
+									<option>Furniture</option>
+									<option>Jewellery</option>
+									<option>Handmade</option>
+									<option>Kids</option>
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="tab__container">
+					<div class="shop-grid tab-pane fade show active" id="nav-grid" role="tabpanel">
+						<div class="row">
+							<?php
+							foreach ($lsbook as $item) {
+								# code...
+								?>
+
+								<!-- Start Single Product -->
+								<div class="product product__style--3 col-lg-4 col-md-4 col-sm-6 col-12">
+									<div class="product__thumb">
+										<a class="first__img" href="single-product.php?id=<?php echo $item->id ?>"><img src="<?php echo $item->image ?>" alt="product image"></a>
+										<a class="second__img animation1" href="single-product.php?id=<?php echo $item->id ?>"><img src="<?php echo $item->image ?>" alt="product image"></a>
+										<div class="hot__box">
+											<span class="hot-label"><?php echo $item->author ?></span>
+										</div>
+									</div>
+									<div class="product__content content--center">
+										<h4><a href="single-product.html"><?php echo $item->title ?></a></h4>
+										<ul class="prize d-flex">
+											<li class="price" data-price="<?php echo $item->price ?>"><?php echo $item->price ?>đ</li>
+											<li class="old_prize">$35.00</li>
+										</ul>
+										<div class="action">
+											<div class="actions_inner">
+												<ul class="add_to_links">
+													<li><a data-id="<?php echo $item->id ?>" class="cart" href="cart.html"><i class="bi bi-shopping-bag4"></i></a></li>
+													<li><a class="wishlist" href="wishlist.html"><i class="bi bi-shopping-cart-full"></i></a></li>
+													<li><a class="compare" href="#"><i class="bi bi-heart-beat"></i></a></li>
+													<li><a data-toggle="modal" title="Quick View" class="quickview modal-view detail-link" href="#productmodal"><i class="bi bi-search"></i></a></li>
+												</ul>
+											</div>
+										</div>
+										<div class="product__hover--content">
+											<ul class="rating d-flex">
+												<li class="on"><i class="fa fa-star-o"></i></li>
+												<li class="on"><i class="fa fa-star-o"></i></li>
+												<li class="on"><i class="fa fa-star-o"></i></li>
+												<li><i class="fa fa-star-o"></i></li>
+												<li><i class="fa fa-star-o"></i></li>
+											</ul>
+										</div>
+									</div>
+								</div>
+								<!-- End Single Product -->
+							<?php } ?>
+
+						</div>
+						<ul class="wn__pagination">
+							<li class="active"><a href="#">1</a></li>
+							<li><a href="#">2</a></li>
+							<li><a href="#">3</a></li>
+							<li><a href="#">4</a></li>
+							<li><a href="#"><i class="zmdi zmdi-chevron-right"></i></a></li>
+						</ul>
+					</div>
+					<div class="shop-grid tab-pane fade" id="nav-list" role="tabpanel">
+						<div class="list__view__wrapper">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
-<?php } ?>
-</body></html>
+<!-- End Shop Page -->
+<?php
+include_once("./footer.php");
+?>

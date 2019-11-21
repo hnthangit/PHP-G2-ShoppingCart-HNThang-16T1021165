@@ -1,16 +1,15 @@
 <?php
-include_once 'classSanPham.php';
-session_start();
-include 'dangxuat.php';
-include 'ketnoidb.php';
-if(isset($_SESSION['user_id']))
-   echo "nguoi dung da dang nhap";
-else
-    echo "nguoi dung chua dang nhap"
-
+include_once './model/book.php';
+//session_start();
+//include 'dangxuat.php';
+//include '../utils/ketnoidb.php';
+// if(isset($_SESSION['user_id']))
+//    echo "nguoi dung da dang nhap";
+// else
+//     echo "nguoi dung chua dang nhap"
+$lsbook = array();
+$lsbook = Book::getAll();
 ?>
-
-
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
@@ -54,7 +53,7 @@ else
     <div class="row">
         <?php
         include 'xulisanpham.php';
-        foreach ($listsanpham as $motsanpham) {
+        foreach ($lsbook as $item) {
             ?>
             <div class="col-md-3 col-sm-6" >
                 <div class="card" style="width: 18rem;">
