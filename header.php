@@ -181,7 +181,11 @@ foreach ($cart as $item) {
 						<ul class="header__sidebar__right d-flex justify-content-end align-items-center">
 							<li class="shop_search"><a class="search__active" href="#"></a></li>
 							<li class="wishlist"><a href="#"></a></li>
-							<li class="shopcart"><a class="cartbox_active" href="#"><span class="product_qun">3</span></a>
+							<li class="shopcart"><a class="cartbox_active" href="#"><span class="product_qun">
+										<?php
+											echo sizeof($cart);
+										?>
+									</span></a>
 								<!-- Start Shopping Cart -->
 								<div class="block-minicart minicart__active">
 									<div class="minicart-content-wrapper">
@@ -214,7 +218,7 @@ foreach ($cart as $item) {
 																<span class="qun">Qty: <?php echo $item->quantity ?></span>
 																<ul class="d-flex justify-content-end">
 																	<li><a href="#"><i class="zmdi zmdi-settings"></i></a></li>
-																	<li><a href="#"><i data-id="<?php echo $item->id?>" class="zmdi zmdi-delete"></i></a></li>
+																	<li><a href="#"><i data-id="<?php echo $item->id ?>" class="zmdi zmdi-delete"></i></a></li>
 																</ul>
 															</div>
 														</div>

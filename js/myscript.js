@@ -2,6 +2,7 @@
     'use strict';
 
     $(document).on('click', ".zmdi-delete",function (e){
+        e.preventDefault();
         var id = $(this).attr("data-id");
         $.ajax({
             context: this,
@@ -13,6 +14,17 @@
             },
         }).done(
             function (html_data) {
+                //Set lại số lượng trên header
+                $.ajax({
+                    url: "number.php",
+                    type: "get",
+                    dataType: "html",
+                }).done(
+                    function (html_data) {
+                        //Gán lại giỏ hàng mới
+                        $(".product_qun").html(html_data);
+                    }
+                );
 
                 //Gán lại giỏ hàng mới
                 $(".minicart-content-wrapper").html(html_data);
@@ -87,6 +99,17 @@
             },
         }).done(
             function (html_data) {
+                //Set lại số lượng trên header
+                $.ajax({
+                    url: "number.php",
+                    type: "get",
+                    dataType: "html",
+                }).done(
+                    function (html_data) {
+                        //Gán lại giỏ hàng mới
+                        $(".product_qun").html(html_data);
+                    }
+                );
 
                 //Gán lại giỏ hàng mới
                 $(".minicart-content-wrapper").html(html_data);
@@ -98,18 +121,24 @@
 
                 $(this).closest("tr").remove();
 
-                $(this).closest("tr").find(".product-subtotal").html(
-                    quantity * Number($(this).closest("tr").find(".amount").html())
-                )
+                // $(this).closest("tr").find(".product-subtotal").html(
+                //     quantity * Number($(this).closest("tr").find(".amount").html())
+                // )
+
+                // //Tính tổng tiền mới
+                // var sum = 0;
+                // $('.product-subtotal:not(:first)').each(function () {
+                //     //console.log($(this).html())
+                //     sum += Number($(this).html());
+                // });
+
+                // $(".total").html(sum);
 
                 //Tính tổng tiền mới
-                var sum = 0;
-                $('.product-subtotal:not(:first)').each(function () {
-                    //console.log($(this).html())
-                    sum += Number($(this).html());
-                });
-
+                var sum = $(".total").html();
+                sum-= $(this).closest("tr").find(".product-subtotal").html();
                 $(".total").html(sum);
+                
             }
         )
 
@@ -176,6 +205,17 @@
             },
         }).done(
             function (html_data) {
+                //Set lại số lượng trên header
+                $.ajax({
+                    url: "number.php",
+                    type: "get",
+                    dataType: "html",
+                }).done(
+                    function (html_data) {
+                        //Gán lại giỏ hàng mới
+                        $(".product_qun").html(html_data);
+                    }
+                );
 
                 //Gán lại giỏ hàng mới
                 $(".minicart-content-wrapper").html(html_data);
@@ -185,7 +225,8 @@
                     $('.minicart__active').removeClass('is-visible');
                 });
             }
-        )
+        );
+        
     })
 
 
