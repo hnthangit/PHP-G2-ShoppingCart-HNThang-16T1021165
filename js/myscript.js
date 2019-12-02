@@ -165,6 +165,16 @@
             },
         }).done(
             function (html_data) {
+                $.ajax({
+                    url: "number.php",
+                    type: "get",
+                    dataType: "html",
+                }).done(
+                    function (html_data) {
+                        //Gán lại giỏ hàng mới
+                        $(".product_qun").html(html_data);
+                    }
+                );
 
                 //Gán lại giỏ hàng mới
                 $(".minicart-content-wrapper").html(html_data);
