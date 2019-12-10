@@ -1,17 +1,10 @@
 ﻿<?php
-include_once './model/book.php';
-//session_start();
-//include 'dangxuat.php';
-//include '../utils/ketnoidb.php';
-// if(isset($_SESSION['user_id']))
-//    echo "nguoi dung da dang nhap";
-// else
-//     echo "nguoi dung chua dang nhap"
-$lsbook = array();
-$lsbook = Book::getAll();
+include_once("./header.php")
 ?>
 <?php
-include_once("./header.php")
+include_once './model/book.php';
+$lsbook = array();
+$lsbook = Book::getAll();
 ?>
 <!-- Start Shop Page -->
 <div class="page-shop-sidebar left--sidebar bg--white section-padding--lg">

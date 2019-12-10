@@ -1,5 +1,5 @@
 <?php
-
+include_once './model/book.php';
 include_once './model/book.php';
 include_once './model/cart.php';
 session_start();
@@ -62,7 +62,7 @@ foreach ($cart as $item) {
 				<div class="row">
 					<div class="col-md-4 col-sm-4 col-7 col-lg-2">
 						<div class="logo">
-							<a href="index.html">
+							<a href="index.php">
 								<img src="images/logo/logo.png" alt="logo images">
 							</a>
 						</div>
@@ -234,7 +234,7 @@ foreach ($cart as $item) {
 								</div>
 								<!-- End Shopping Cart -->
 							</li>
-							<li class="setting__bar__icon"><a class="setting__active" href="#"></a>
+							<li class="setting__bar__icon"><a class="" href="logout.php"></a>
 								<div class="searchbar__content setting__block">
 									<div class="content-inner">
 										<div class="switcher-currency">

@@ -1,4 +1,21 @@
-﻿<!doctype html>
+﻿<?php 
+include_once("model/user.php");
+session_start();
+if(isset($_SESSION["user"])){
+  $user = $_SESSION["user"];
+  if($user->role==1){
+	header("location:adminadd.php");
+  } else {
+  header("location:index.php");
+  }
+}
+if(isset($_REQUEST["action"])){
+	$user = User::getUser($_REQUEST["username"],$_REQUEST["password"]);
+	$_SESSION["user"] = $user;
+	header("location:adminadd.php");
+}
+?>
+<!doctype html>
 <html class="no-js" lang="zxx">
 <head>
 	<meta charset="utf-8">
@@ -394,18 +411,18 @@
 					<div class="col-lg-6 col-12">
 						<div class="my__account__wrapper">
 							<h3 class="account__title">Login</h3>
-							<form action="#">
+							<form action="login.php">
 								<div class="account__form">
 									<div class="input__box">
 										<label>Username or email address <span>*</span></label>
-										<input type="text">
+										<input name="username" type="text">
 									</div>
 									<div class="input__box">
 										<label>Password<span>*</span></label>
-										<input type="text">
+										<input name="password" type="text">
 									</div>
 									<div class="form__btn">
-										<button>Login</button>
+										<button type="submit" name="action">Login</button>
 										<label class="label-for-checkbox">
 											<input id="rememberme" class="input-checkbox" name="rememberme" value="forever" type="checkbox">
 											<span>Remember me</span>

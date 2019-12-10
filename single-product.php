@@ -50,8 +50,7 @@ include_once("./header.php")
 									<span><?php echo $book->price ?>đ</span>
 								</div>
 								<div class="product__overview">
-									<p>Ideal for cold-weather training or work outdoors, the Chaz Hoodie promises superior warmth with every wear. Thick material blocks out the wind as ribbed cuffs and bottom band seal in body heat.</p>
-									<p>Ideal for cold-weather training or work outdoors, the Chaz Hoodie promises superior warmth with every wear. </p>
+									<p><?php echo $book->description ?></p>
 								</div>
 								<div class="box-tocart d-flex">
 									<span>Qty</span>
